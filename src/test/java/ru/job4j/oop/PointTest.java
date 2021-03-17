@@ -2,11 +2,13 @@ package ru.job4j.oop;
 
 import junit.framework.TestCase;
 import org.junit.Assert;
+import org.junit.Test;
 
 import static org.hamcrest.Matchers.closeTo;
 
-public class PointTest extends TestCase {
+public class PointTest {
 
+    @Test
     public void testDistance() {
         Point a = new Point(1, 2);
         Point b = new Point(10, 10);
@@ -14,6 +16,7 @@ public class PointTest extends TestCase {
         Assert.assertThat(rsl, closeTo(12.04, 0.01));
     }
 
+    @Test
     public void testDistance3d() {
         Point a = new Point(1, 1, 1);
         Point b = new Point(10, 10, 10);
