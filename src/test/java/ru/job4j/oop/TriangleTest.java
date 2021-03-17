@@ -6,8 +6,9 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
-public class TriangleTest extends TestCase {
+public class TriangleTest {
 
+    @Test
     public void testPeriod() {
         Point a = new Point(0, 0);
         Point b = new Point(4, 0);
@@ -17,6 +18,7 @@ public class TriangleTest extends TestCase {
         assertThat(rsl, closeTo(6.828, 0.001));
     }
 
+    @Test
     public void testExist() {
         Point a = new Point(0, 0);
         Point b = new Point(4, 0);
@@ -29,6 +31,7 @@ public class TriangleTest extends TestCase {
         assertThat(rsl, is(true));
     }
 
+    @Test
     public void testArea() {
         Point a = new Point(0, 0);
         Point b = new Point(4, 0);
