@@ -1,4 +1,4 @@
-package ru.job4j.inheritance;
+package ru.job4j.inheritance.prof;
 
 class Recipe extends Diagnosis {
     private String title;

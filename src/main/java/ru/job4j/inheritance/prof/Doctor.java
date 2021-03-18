@@ -1,4 +1,4 @@
-package ru.job4j.inheritance;
+package ru.job4j.inheritance.prof;
 
 class Doctor extends Proffession {
     private String Qualification;
@@ -8,6 +8,7 @@ class Doctor extends Proffession {
     private String placeOfWork;
 
     public Diagnosis heal(Patient patient) {
+        return null;
     }
 
     public void setRecipe(Patient patient) {

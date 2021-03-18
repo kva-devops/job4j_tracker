@@ -1,4 +1,4 @@
-package ru.job4j.inheritance;
+package ru.job4j.inheritance.prof;
 
 public class Proffession {
     private String name;

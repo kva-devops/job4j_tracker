@@ -1,4 +1,4 @@
-package ru.job4j.inheritance;
+package ru.job4j.inheritance.prof;
 
 class Surgeon extends Doctor {
     private int numberOfOperation;
@@ -12,5 +12,6 @@ class Surgeon extends Doctor {
     }
 
     public String reportOfSurgery() {
+        return " ";
     }
 }
