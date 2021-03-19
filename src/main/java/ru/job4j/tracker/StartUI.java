@@ -9,6 +9,7 @@ public class StartUI {
         obj1.add(new Item("Ivan"));
         obj1.add(new Item("Stepan"));
         obj1.add(new Item("Alex"));
+        obj1.add(new Item("Ivan"));
         System.out.println("All items -> " + Arrays.toString(obj1.findAll()));
         System.out.println("Find by name 'Ivan' -> " + Arrays.toString(obj1.findByName("Ivan")));
         System.out.println("Find by ID '2' -> " + obj1.findById(2));
