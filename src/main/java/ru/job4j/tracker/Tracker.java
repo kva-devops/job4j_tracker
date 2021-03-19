@@ -79,11 +79,12 @@ public class Tracker {
 //        }
 //        return false;
 //    }
+
     public boolean delete(int id) {
         if (checkValid(id)) {
             int index = indexOf(id);
+            items[index] = null;
             System.arraycopy(items, index + 1, items, index, size - index);
-            items[size - 1] = null;
             size--;
             return true;
         }
