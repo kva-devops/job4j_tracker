@@ -29,7 +29,7 @@ public class Library {
         }
         System.out.println();
         for (int i = 0; i < shelf.length; i++) {
-            if (shelf[i].getTitle().equals("Clean code")) {
+            if ("Clean code".equals(shelf[i].getTitle())) {
                     System.out.println(
                             "Book's index: " + i + ", " +
                             "Book's title: " + "\"" + shelf[i].getTitle() + "\"" + ", " +
