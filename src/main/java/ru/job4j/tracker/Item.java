@@ -33,14 +33,22 @@ public class Item {
         this.name = name;
     }
 
+//    @Override
+//    public String toString() {
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("NAME:");
+//        sb.append(this.getName());
+//        sb.append(" ");
+//        sb.append("ID:");
+//        sb.append(this.getId());
+//        return sb.toString();
+//    }
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("NAME:");
-        sb.append(this.getName());
-        sb.append(" ");
-        sb.append("ID:");
-        sb.append(this.getId());
-        return sb.toString();
+        return "Item{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
