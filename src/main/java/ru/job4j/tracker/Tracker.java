@@ -45,44 +45,19 @@ public class Tracker {
         return index != -1 ? items[index] : null;
     }
 
-//    public boolean replace(int id, Item item) {
-//        int index = indexOf(id);
-//        boolean rsl = index != -1;
-//        if (rsl) {
-//            items[index] = item;
-//            item.setId(id);
-//        }
-//        return rsl;
-//    }
-
     public boolean replace(int id, Item item) {
-        if (checkValid(id)) {
-            items[indexOf(id)] = item;
+        int index = indexOf(id);
+        if (index >= 0) {
+            items[index] = item;
             item.setId(id);
             return true;
         }
         return false;
     }
 
-    private boolean checkValid(int id) {
-        return indexOf(id) != -1;
-    }
-
-//    public boolean delete(int id) {
-//        int index = indexOf(id);
-//        boolean rsl = index != 1;
-//        if (rsl) {
-//            System.arraycopy(items, index + 1, items, index, size - index);
-    //        items[size - 1] = null;
-    //        size--;
-    //        return true;
-//        }
-//        return false;
-//    }
-
     public boolean delete(int id) {
-        if (checkValid(id)) {
-            int index = indexOf(id);
+        int index = indexOf(id);
+        if (index >= 0) {
             items[index] = null;
             System.arraycopy(items, index + 1, items, index, size - index);
             size--;
