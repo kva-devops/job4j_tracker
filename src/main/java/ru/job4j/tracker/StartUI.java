@@ -19,7 +19,9 @@ public class StartUI {
             } else if (select == 1) {
                 System.out.println("=== All list items ===");
                 Item[] buffer = tracker.findAll();
-                System.out.println(Arrays.toString(buffer));
+                for (Item element : buffer) {
+                    System.out.println(element);
+                }
             } else if (select == 2) {
                 System.out.println("=== Edit item ===");
                 System.out.println("Enter ID item for search: ");
