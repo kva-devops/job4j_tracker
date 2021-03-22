@@ -1,23 +1,23 @@
 package ru.job4j.poly;
 
-public class Bus implements Vehicle {
+public class Train implements Vehicle{
     @Override
     public String nameVehicle() {
-        return "Bus";
+        return "Train";
     }
 
     @Override
     public void move() {
-        System.out.println("Bus goes on the road");
+        System.out.println("Train is running on railway");
     }
 
     @Override
     public int passengerCapacity() {
-        return 40;
+        return 500;
     }
 
     @Override
     public int maxSpeed() {
-        return 140;
+        return 100;
     }
 }
