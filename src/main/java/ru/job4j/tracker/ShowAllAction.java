@@ -1,6 +1,11 @@
 package ru.job4j.tracker;
 
 public class ShowAllAction implements UserAction {
+    private final Output out;
+
+    public ShowAllAction(Output out) {
+        this.out = out;
+    }
 
     @Override
     public String name() {
@@ -9,10 +14,10 @@ public class ShowAllAction implements UserAction {
 
     @Override
     public boolean execute(Input input, Tracker tracker) {
-        System.out.println("=== All list items ===");
+        out.println("=== All list items ===");
         Item[] buffer = tracker.findAll();
         for (Item element : buffer) {
-            System.out.println(element);
+            out.println(element);
         }
         return true;
     }
