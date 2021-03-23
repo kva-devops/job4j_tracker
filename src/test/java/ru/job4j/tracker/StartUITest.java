@@ -9,10 +9,15 @@ public class StartUITest {
 
     @Test
     public void testCreateItem() {
-        String[] answers = {"Fix PS4"};
-        Input input = new StubInput(answers);
+        Input input = new StubInput(
+                new String[] {"0", "Fix PS4", "1"}
+        );
         Tracker tracker = new Tracker();
-        StartUI.createItem(input, tracker);
+        UserAction[] actions = {
+                new CreateAction(),
+                new ExitAction()
+        };
+        new StartUI().init(input, tracker, actions);
         Item created = tracker.findAll()[0];
         Item expect = new Item("Fix PS4");
         Assert.assertThat(created.getName(), is(expect.getName()));
@@ -23,9 +28,14 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item item = new Item("new item");
         tracker.add(item);
-        String[] answers = {String.valueOf(item.getId()), "replaced item"};
+        String[] answers = {"0", String.valueOf(item.getId()), "replaced item", "1"};
         Input input = new StubInput(answers);
-        StartUI.replaceItem(input, tracker);
+        UserAction[] actions = {
+                new EditAction(),
+                new ExitAction()
+        };
+        new StartUI().init(input, tracker, actions);
+        //StartUI.replaceItem(input, tracker);
         Item replaced = tracker.findById(item.getId());
         Assert.assertThat(replaced.getName(), is("replaced item"));
     }
@@ -35,9 +45,14 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item item = new Item("new item");
         tracker.add(item);
-        String[] answers = {String.valueOf(item.getId())};
+        String[] answers = {"0", String.valueOf(item.getId()), "1"};
         Input input = new StubInput(answers);
-        StartUI.deleteItem(input, tracker);
+        UserAction[] actions = {
+                new DeleteAction(),
+                new ExitAction()
+        };
+        new StartUI().init(input, tracker, actions);
+        //StartUI.deleteItem(input, tracker);
         Assert.assertThat(
                 tracker.findById(item.getId()),
                 is(nullValue()));
