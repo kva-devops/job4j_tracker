@@ -43,7 +43,7 @@ public class StartUITest {
                         "0.Show all items" + System.lineSeparator() +
                         "1.Exit program" + System.lineSeparator() +
                         "=== All list items ===" + System.lineSeparator() +
-                        "Item{id=1, name='new item'}" + System.lineSeparator() +
+                        item + System.lineSeparator() +
                         "Menu" + System.lineSeparator() +
                         "0.Show all items" + System.lineSeparator() +
                         "1.Exit program" + System.lineSeparator()
@@ -88,13 +88,13 @@ public class StartUITest {
 
     @Test
     public void whenFindByID() {
-        Output out = new StubOutput();
-        Input in = new StubInput(
-                new String[] {"0", "1", "1"}
-        );
         Tracker tracker = new Tracker();
         Item item = new Item("new item");
         tracker.add(item);
+        Output out = new StubOutput();
+        Input in = new StubInput(
+                new String[] {"0", String.valueOf(item.getId()), "1"}
+        );
         UserAction[] actions = {
                 new FindByIDAction(out),
                 new ExitAction(out)
@@ -105,7 +105,7 @@ public class StartUITest {
                         "0.Find item by ID" + System.lineSeparator() +
                         "1.Exit program" + System.lineSeparator() +
                         "=== Find item by ID ===" + System.lineSeparator() +
-                        "Result: Item{id=1, name='new item'}" + System.lineSeparator() +
+                        "Result: " + item + System.lineSeparator() +
                         "Menu" + System.lineSeparator() +
                         "0.Find item by ID" + System.lineSeparator() +
                         "1.Exit program" + System.lineSeparator()
@@ -131,7 +131,7 @@ public class StartUITest {
                         "0.Find items by name" + System.lineSeparator() +
                         "1.Exit program" + System.lineSeparator() +
                         "=== Find item by Name ===" + System.lineSeparator() +
-                        "Item{id=1, name='new item'}" + System.lineSeparator() +
+                        item + System.lineSeparator() +
                         "Menu" + System.lineSeparator() +
                         "0.Find items by name" + System.lineSeparator() +
                         "1.Exit program" + System.lineSeparator()
