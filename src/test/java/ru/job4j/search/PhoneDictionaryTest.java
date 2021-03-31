@@ -1,9 +1,9 @@
 package ru.job4j.search;
 
+import org.hamcrest.collection.IsEmptyCollection;
+import org.junit.Assert;
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-
 import java.util.ArrayList;
 
 public class PhoneDictionaryTest {
@@ -18,6 +18,21 @@ public class PhoneDictionaryTest {
                         "Bryansk")
         );
         ArrayList<Person> result = phones.find("Petr");
-        assertThat(result.get(0).getSurname(), is("Arsentev"));
+        String rsl = result.get(0).getName();
+        String expect = "Petr";
+        Assert.assertThat(expect, is(rsl));
+    }
+
+    @Test
+    public void testNotFound() {
+        PhoneDictionary phones = new PhoneDictionary();
+        phones.add(
+                new Person("Petr",
+                        "Arsentev",
+                        "+743234234",
+                        "Bryansk")
+        );
+        ArrayList<Person> result = phones.find("Piter");
+        Assert.assertThat(result, IsEmptyCollection.empty());
     }
 }
