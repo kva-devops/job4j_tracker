@@ -178,6 +178,77 @@ public class StartUITest {
                 + "Menu" + ln
                 + "0.Exit program" + ln
         ));
+    }
 
+    @Test
+    public void whenSortingAscendingOrder() {
+        Output out = new StubOutput();
+        Input in = new StubInput(
+                new String[] {"0", "Willy", "0", "Billy", "0", "John", "1", "2"}
+        );
+        Tracker tracker = new Tracker();
+        List<UserAction> actions = List.of(
+                new CreateAction(out),
+                new SortItemAscendingOrder(out),
+                new ExitAction(out)
+        );
+        new StartUI(out).init(in, tracker, actions);
+        List<Item> result = tracker.findAll();
+        Item expect = new Item("John");
+        assertThat(result.get(2).getName(), is(expect.getName()));
+    }
+
+    @Test
+    public void whenSortingDescendingOrder() {
+        Output out = new StubOutput();
+        Input in = new StubInput(
+                new String[] {"0", "Willy", "0", "Billy", "0", "John", "1", "2"}
+        );
+        Tracker tracker = new Tracker();
+        List<UserAction> actions = List.of(
+                new CreateAction(out),
+                new SortItemDescendingOrder(out),
+                new ExitAction(out)
+        );
+        new StartUI(out).init(in, tracker, actions);
+        List<Item> result = tracker.findAll();
+        Item expect = new Item("Willy");
+        assertThat(result.get(2).getName(), is(expect.getName()));
+    }
+
+    @Test
+    public void whenSortingAscendingOrderByName() {
+        Output out = new StubOutput();
+        Input in = new StubInput(
+                new String[] {"0", "Willy", "0", "Billy", "0", "John", "1", "2"}
+        );
+        Tracker tracker = new Tracker();
+        List<UserAction> actions = List.of(
+                new CreateAction(out),
+                new SortItemAscendingOrderName(out),
+                new ExitAction(out)
+        );
+        new StartUI(out).init(in, tracker, actions);
+        List<Item> result = tracker.findAll();
+        Item expect = new Item("Billy");
+        assertThat(result.get(0).getName(), is(expect.getName()));
+    }
+
+    @Test
+    public void whenSortingDescendingOrderByName() {
+        Output out = new StubOutput();
+        Input in = new StubInput(
+                new String[] {"0", "Willy", "0", "Billy", "0", "John", "1", "2"}
+        );
+        Tracker tracker = new Tracker();
+        List<UserAction> actions = List.of(
+                new CreateAction(out),
+                new SortItemDescendingOrderName(out),
+                new ExitAction(out)
+        );
+        new StartUI(out).init(in, tracker, actions);
+        List<Item> result = tracker.findAll();
+        Item expect = new Item("Willy");
+        assertThat(result.get(0).getName(), is(expect.getName()));
     }
 }

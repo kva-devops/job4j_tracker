@@ -1,7 +1,7 @@
 package ru.job4j.tracker;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Tracker {
@@ -61,5 +61,27 @@ public class Tracker {
             return true;
         }
         return false;
+    }
+
+    public List<Item> sortAscendId() {
+        Collections.sort(items, new SortingAscending());
+        return List.copyOf(items);
+    }
+
+    public List<Item> sortDescendId() {
+        Collections.sort(items, new SortingAscending());
+        Collections.reverse(items);
+        return List.copyOf(items);
+    }
+
+    public List<Item> sortAscendName() {
+        Collections.sort(items, new SortingAscendingName());
+        return List.copyOf(items);
+    }
+
+    public List<Item> sortDescendName() {
+        Collections.sort(items, new SortingAscendingName());
+        Collections.reverse(items);
+        return List.copyOf(items);
     }
 }
