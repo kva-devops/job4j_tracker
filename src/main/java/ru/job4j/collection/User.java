@@ -21,9 +21,12 @@ public class User implements Comparable<User> {
 
     @Override
     public int compareTo(User o) {
-        return (!this.getName().equals(o.getName())) ?
-                CharSequence.compare(this.getName(), o.getName()) :
-                Integer.compare(this.getAge(), o.getAge());
+        int rslCompare = getName().compareTo(o.getName());
+        if (rslCompare == 0) {
+            return Integer.compare(this.getAge(), o.getAge());
+        } else {
+            return rslCompare;
+        }
     }
 
     @Override
