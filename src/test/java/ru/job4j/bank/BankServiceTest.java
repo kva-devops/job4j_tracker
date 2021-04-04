@@ -3,6 +3,10 @@ package ru.job4j.bank;
 import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.CoreMatchers.*;
 
@@ -23,6 +27,17 @@ public class BankServiceTest {
         bank.addUser(user);
         bank.addAccount(user.getPassport(), new Account("2111", 200D));
         Assert.assertThat(bank.findByRequisite("2222", "2111").getBalance(), is(200D));
+    }
+
+    @Test
+    public void testAddAccountReply() {
+        User user = new User("2222", "Petr Arsentev");
+        BankService bank = new BankService();
+        bank.addUser(user);
+        bank.addAccount(user.getPassport(), new Account("1111", 200D));
+        bank.addAccount(user.getPassport(), new Account("1111", 200D));
+        Assert.assertThat(bank.findByRequisite("2222", "1111"), is(new Account("1111", 200D)));
+
     }
 
     @Test
@@ -57,4 +72,16 @@ public class BankServiceTest {
                 is(200D));
 
     }
+    @Test
+    public void transferMoneyInvalid() {
+        User user = new User("3434", "Petr Arsentev");
+        BankService bank = new BankService();
+        bank.addUser(user);
+        bank.addAccount(user.getPassport(), new Account("5546", 150D));
+        Assert.assertThat(bank.transferMoney(user.getPassport(), "5546",
+                                             user.getPassport(), "113",
+                                            150D),
+                                                is(false));
+    }
+
 }
