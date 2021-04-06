@@ -1,6 +1,6 @@
 package ru.job4j.poly;
 
-public class Airplane implements Vehicle{
+public class Airplane implements Vehicle {
     @Override
     public String nameVehicle() {
         return "Airplane";

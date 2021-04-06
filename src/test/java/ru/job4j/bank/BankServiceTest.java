@@ -72,6 +72,7 @@ public class BankServiceTest {
                 is(200D));
 
     }
+
     @Test
     public void transferMoneyInvalid() {
         User user = new User("3434", "Petr Arsentev");

@@ -43,14 +43,14 @@ public class StartUITest {
         );
         new StartUI(out).init(input, tracker, actions);
         Assert.assertThat(out.toString(), is(
-                "Menu" + System.lineSeparator() +
-                        "0.Show all items" + System.lineSeparator() +
-                        "1.Exit program" + System.lineSeparator() +
-                        "=== All list items ===" + System.lineSeparator() +
-                        item + System.lineSeparator() +
-                        "Menu" + System.lineSeparator() +
-                        "0.Show all items" + System.lineSeparator() +
-                        "1.Exit program" + System.lineSeparator()
+                "Menu" + System.lineSeparator()
+                        + "0.Show all items" + System.lineSeparator()
+                        + "1.Exit program" + System.lineSeparator()
+                        + "=== All list items ===" + System.lineSeparator()
+                        + item + System.lineSeparator()
+                        + "Menu" + System.lineSeparator()
+                        + "0.Show all items" + System.lineSeparator()
+                        + "1.Exit program" + System.lineSeparator()
         ));
     }
 
@@ -105,14 +105,14 @@ public class StartUITest {
         );
         new StartUI(out).init(in, tracker, actions);
         Assert.assertThat(out.toString(), is(
-                "Menu" + System.lineSeparator() +
-                        "0.Find item by ID" + System.lineSeparator() +
-                        "1.Exit program" + System.lineSeparator() +
-                        "=== Find item by ID ===" + System.lineSeparator() +
-                        "Result: " + item + System.lineSeparator() +
-                        "Menu" + System.lineSeparator() +
-                        "0.Find item by ID" + System.lineSeparator() +
-                        "1.Exit program" + System.lineSeparator()
+                "Menu" + System.lineSeparator()
+                        + "0.Find item by ID" + System.lineSeparator()
+                        + "1.Exit program" + System.lineSeparator()
+                        + "=== Find item by ID ===" + System.lineSeparator()
+                        + "Result: " + item + System.lineSeparator()
+                        + "Menu" + System.lineSeparator()
+                        + "0.Find item by ID" + System.lineSeparator()
+                        + "1.Exit program" + System.lineSeparator()
         ));
     }
 
@@ -131,14 +131,14 @@ public class StartUITest {
         );
         new StartUI(out).init(in, tracker, actions);
         Assert.assertThat(out.toString(), is(
-                "Menu" + System.lineSeparator() +
-                        "0.Find items by name" + System.lineSeparator() +
-                        "1.Exit program" + System.lineSeparator() +
-                        "=== Find item by Name ===" + System.lineSeparator() +
-                        item + System.lineSeparator() +
-                        "Menu" + System.lineSeparator() +
-                        "0.Find items by name" + System.lineSeparator() +
-                        "1.Exit program" + System.lineSeparator()
+                "Menu" + System.lineSeparator()
+                        + "0.Find items by name" + System.lineSeparator()
+                        + "1.Exit program" + System.lineSeparator()
+                        + "=== Find item by Name ===" + System.lineSeparator()
+                        + item + System.lineSeparator()
+                        + "Menu" + System.lineSeparator()
+                        + "0.Find items by name" + System.lineSeparator()
+                        + "1.Exit program" + System.lineSeparator()
         ));
     }
 
@@ -154,8 +154,8 @@ public class StartUITest {
         );
         new StartUI(out).init(in, tracker, actions);
         Assert.assertThat(out.toString(), is(
-                "Menu" + System.lineSeparator() +
-                        "0.Exit program" + System.lineSeparator()
+                "Menu" + System.lineSeparator()
+                        + "0.Exit program" + System.lineSeparator()
         ));
     }
 

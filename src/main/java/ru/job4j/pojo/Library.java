@@ -13,9 +13,9 @@ public class Library {
         shelf[3] = item4;
         for (int i = 0; i < shelf.length; i++) {
             System.out.println(
-                            "Book's index: " + i + ", " +
-                            "Book's title: " + "\"" + shelf[i].getTitle() + "\"" + ", " +
-                            "Amount of page: " + shelf[i].getAmountPage());
+                            "Book's index: " + i + ", "
+                            + "Book's title: " + "\"" + shelf[i].getTitle() + "\"" + ", "
+                            + "Amount of page: " + shelf[i].getAmountPage());
         }
         Book temp = shelf[0];
         shelf[0] = shelf[3];
@@ -23,17 +23,17 @@ public class Library {
         System.out.println();
         for (int i = 0; i < shelf.length; i++) {
             System.out.println(
-                            "Book's index: " + i + ", " +
-                            "Book's title: " + "\"" + shelf[i].getTitle() + "\"" + ", " +
-                            "Amount of page: " + shelf[i].getAmountPage());
+                            "Book's index: " + i + ", "
+                            + "Book's title: " + "\"" + shelf[i].getTitle() + "\"" + ", "
+                            + "Amount of page: " + shelf[i].getAmountPage());
         }
         System.out.println();
         for (int i = 0; i < shelf.length; i++) {
             if ("Clean code".equals(shelf[i].getTitle())) {
                     System.out.println(
-                            "Book's index: " + i + ", " +
-                            "Book's title: " + "\"" + shelf[i].getTitle() + "\"" + ", " +
-                            "Amount of page: " + shelf[i].getAmountPage());
+                            "Book's index: " + i + ", "
+                            + "Book's title: " + "\"" + shelf[i].getTitle() + "\"" + ", "
+                            + "Amount of page: " + shelf[i].getAmountPage());
             }
         }
     }

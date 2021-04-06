@@ -8,8 +8,8 @@ public class College {
         person1.setName("Ivanov Ivan Ivanovich");
         person1.setGroup("1233441");
         person1.setCredited(new Date());
-        System.out.println( "Student: " + person1.getName() + System.lineSeparator() +
-                            "Group No: " + person1.getGroup() + System.lineSeparator() +
-                            "Date of credited: " + person1.getCredited() + System.lineSeparator());
+        System.out.println("Student: " + person1.getName() + System.lineSeparator()
+                            + "Group No: " + person1.getGroup() + System.lineSeparator()
+                + "Date of credited: " + person1.getCredited() + System.lineSeparator());
     }
 }

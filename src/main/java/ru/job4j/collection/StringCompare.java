@@ -11,7 +11,7 @@ public class StringCompare implements Comparator<String> {
         int rslSizeMinStr = Math.min(left.length(), right.length());
         for (int i = 0; i < rslSizeMinStr; i++) {
             rslCmpString = Character.compare(left.charAt(i), right.charAt(i));
-            if (rslCmpString != 0 ) {
+            if (rslCmpString != 0) {
                 break;
             }
         }

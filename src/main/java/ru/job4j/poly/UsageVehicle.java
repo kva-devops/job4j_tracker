@@ -7,7 +7,7 @@ public class UsageVehicle {
         Vehicle airplane = new Airplane();
         Vehicle[] listVehicle = {train, bus, airplane};
 
-        for (Vehicle element : listVehicle ) {
+        for (Vehicle element : listVehicle) {
             System.out.println(element.nameVehicle());
             System.out.println("Max speed: " + element.maxSpeed());
             System.out.println("Passenger capacity: " + element.passengerCapacity());

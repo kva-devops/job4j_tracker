@@ -5,7 +5,7 @@ import java.util.Arrays;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-public class ConvertList2ArrayTest{
+public class ConvertList2ArrayTest {
 
     @Test
     public void when7ElemThen9() {

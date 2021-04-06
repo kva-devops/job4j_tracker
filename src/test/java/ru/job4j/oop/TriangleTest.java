@@ -13,7 +13,7 @@ public class TriangleTest {
         Point a = new Point(0, 0);
         Point b = new Point(4, 0);
         Point c = new Point(0, 4);
-        Triangle triangle = new Triangle(a , b, c);
+        Triangle triangle = new Triangle(a, b, c);
         double rsl = triangle.period(a.distance(b), a.distance(c), b.distance(c));
         assertThat(rsl, closeTo(6.828, 0.001));
     }
@@ -26,7 +26,7 @@ public class TriangleTest {
         double ab = a.distance(b);
         double ac = a.distance(c);
         double bc = b.distance(c);
-        Triangle triangle = new Triangle(a , b, c);
+        Triangle triangle = new Triangle(a, b, c);
         boolean rsl = triangle.exist(ab, ac, bc);
         assertThat(rsl, is(true));
     }

@@ -36,7 +36,6 @@ public class UserTest {
         assertThat(it.next(), is(new User("Petr", 31)));
     }
 
-
     @Test
     public void whenComparePetrVSIvanExpectGreaterZero() {
         int rsl = new User("Petr", 32)

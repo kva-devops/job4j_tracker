@@ -19,9 +19,9 @@ public class Job {
 
     @Override
     public String toString() {
-        return "Job{" +
-                "name='" + name + '\'' +
-                ", priority=" + priority +
-                '}';
+        return "Job{"
+                + "name='" + name + '\''
+                + ", priority=" + priority
+                + '}';
     }
 }

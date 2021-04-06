@@ -1,7 +1,7 @@
 package ru.job4j.inheritance.prof;
 
 class Doctor extends Proffession {
-    private String Qualification;
+    private String qualification;
 
     private String numLicense;
 
@@ -19,6 +19,6 @@ class Doctor extends Proffession {
     }
 
     public String getQualification() {
-        return Qualification;
+        return qualification;
     }
 }
