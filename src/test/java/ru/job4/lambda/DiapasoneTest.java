@@ -1,8 +1,9 @@
 package ru.job4.lambda;
 
-import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Test;
+import ru.job4j.lambda.Diapasone;
+
 import static org.hamcrest.core.Is.is;
 import java.util.Arrays;
 import java.util.List;
