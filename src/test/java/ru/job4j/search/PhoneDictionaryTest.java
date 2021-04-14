@@ -35,4 +35,54 @@ public class PhoneDictionaryTest {
         ArrayList<Person> result = phones.find("Piter");
         Assert.assertThat(result, IsEmptyCollection.empty());
     }
+
+    @Test
+    public void whenFindByName() {
+        PhoneDictionary phones = new PhoneDictionary();
+        phones.add(
+                new Person("Petr", "Arsentev", "111333", "Bryansk")
+        );
+        ArrayList<Person> persons = phones.find("Petr");
+        Assert.assertThat(persons.get(0).getSurname(), is("Arsentev"));
+    }
+
+    @Test
+    public void whenFindBySurname() {
+        PhoneDictionary phones = new PhoneDictionary();
+        phones.add(
+                new Person("Petr", "Arsentev", "111333", "Bryansk")
+        );
+        ArrayList<Person> persons = phones.find("Arsentev");
+        Assert.assertThat(persons.get(0).getPhone(), is("111333"));
+    }
+
+    @Test
+    public void whenFindByPhone() {
+        PhoneDictionary phones = new PhoneDictionary();
+        phones.add(
+                new Person("Petr", "Arsentev", "111333", "Bryansk")
+        );
+        ArrayList<Person> persons = phones.find("111333");
+        Assert.assertThat(persons.get(0).getName(), is("Petr"));
+    }
+
+    @Test
+    public void whenFindByAddress() {
+        PhoneDictionary phones = new PhoneDictionary();
+        phones.add(
+                new Person("Petr", "Arsentev", "111333", "Bryansk")
+        );
+        ArrayList<Person> persons = phones.find("Bryansk");
+        Assert.assertThat(persons.get(0).getName(), is("Petr"));
+    }
+
+    @Test
+    public void whenFindByNameResultFalse() {
+        PhoneDictionary phones = new PhoneDictionary();
+        phones.add(
+                new Person("Petr", "Arsentev", "111333", "Bryansk")
+        );
+        ArrayList<Person> persons = phones.find("Petrov");
+        Assert.assertThat(persons.isEmpty(), is(true));
+    }
 }
