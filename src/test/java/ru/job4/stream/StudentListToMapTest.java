@@ -1,9 +1,10 @@
 package ru.job4.stream;
 
-import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Test;
 import ru.job4j.stream.Student;
+import ru.job4j.stream.StudentListToMap;
+
 import static org.hamcrest.core.Is.is;
 import java.util.Arrays;
 import java.util.HashMap;
