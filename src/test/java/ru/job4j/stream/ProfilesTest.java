@@ -12,15 +12,15 @@ public class ProfilesTest {
     @Test
     public void whenHasProfiles() {
         List<Address> expect = Arrays.asList(
+                new Address("Astana", "Stalina", 7, 334),
                 new Address("Moscow", "Lenina", 5, 100),
-                new Address("Moscow", "Stalina", 7, 334),
                 new Address("Vladivostok", "Pushkina", 34, 13)
         );
         List<Profile> clients = Arrays.asList(
                 new Profile(new Address(
                         "Moscow", "Lenina", 5, 100)),
                 new Profile(new Address(
-                        "Moscow", "Stalina", 7, 334)),
+                        "Astana", "Stalina", 7, 334)),
                 new Profile(new Address(
                         "Vladivostok", "Pushkina", 34, 13))
         );
@@ -32,6 +32,27 @@ public class ProfilesTest {
     public void whenHasNotProfiles() {
         List<Address> expect = new ArrayList<>();
         List<Profile> clients = new ArrayList<>();
+        List<Address> result = Profiles.collect(clients);
+        Assert.assertThat(result, is(expect));
+    }
+
+    @Test
+    public void whenHasEqualsAddresses() {
+        List<Address> expect = Arrays.asList(
+                new Address("Astana", "Stalina", 7, 334),
+                new Address("Moscow", "Lenina", 5, 100),
+                new Address("Vladivostok", "Pushkina", 34, 13)
+        );
+        List<Profile> clients = Arrays.asList(
+                new Profile(new Address(
+                        "Moscow", "Lenina", 5, 100)),
+                new Profile(new Address(
+                        "Vladivostok", "Pushkina", 34, 13)),
+                new Profile(new Address(
+                        "Moscow", "Lenina", 5, 100)),
+                new Profile(new Address(
+                        "Astana", "Stalina", 7, 334))
+        );
         List<Address> result = Profiles.collect(clients);
         Assert.assertThat(result, is(expect));
     }
