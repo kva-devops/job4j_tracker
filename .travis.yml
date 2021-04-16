@@ -11,7 +11,7 @@ notifications:
   email:
     recipients:
       -kva.devops@gmail.com
-    on_success: never #
+    on_success: never
     on_failure: always
 
 env:
