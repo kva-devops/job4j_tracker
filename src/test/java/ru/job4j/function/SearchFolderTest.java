@@ -27,7 +27,7 @@ public class SearchFolderTest {
                 new Folder("bug", 75),
                 new Folder("bug", 90)
         );
-        List<Folder> expected = List.of (
+        List<Folder> expected = List.of(
                 new Folder("bug", 75),
                 new Folder("bug", 90)
         );
