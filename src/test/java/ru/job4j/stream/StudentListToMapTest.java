@@ -1,4 +1,4 @@
-package ru.job4.stream;
+package ru.job4j.stream;
 
 import org.junit.Assert;
 import org.junit.Test;
