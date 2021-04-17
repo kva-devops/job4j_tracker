@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  * Класс реализует работу банковского сервиса, который позволяет
- * производить различне банковские операции
+ * производить различные банковские операции
  * @author VLADIMIR KUTYAVIN
  * @version 1.0
  */
@@ -49,12 +49,11 @@ public class BankService {
      * @return возвращает объект типа User, если клиент найден
      */
     public User findByPassport(String passport) {
-        for (User elem : users.keySet()) {
-            if (elem.getPassport().equals(passport)) {
-                    return elem;
-            }
-        }
-        return null;
+        return users.keySet()
+                .stream()
+                .filter(user -> user.getPassport().equals(passport))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -67,12 +66,11 @@ public class BankService {
     public Account findByRequisite(String passport, String requisite) {
         User rslUser = findByPassport(passport);
         if (rslUser != null) {
-            List<Account> rsl = users.get(rslUser);
-            for (Account acc : rsl) {
-                if (acc.getRequisite().equals(requisite)) {
-                    return acc;
-                }
-            }
+            return users.get(rslUser)
+                    .stream()
+                    .filter(account -> account.getRequisite().equals(requisite))
+                    .findFirst()
+                    .orElse(null);
         }
         return null;
     }
