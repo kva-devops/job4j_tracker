@@ -1,10 +1,8 @@
 package ru.job4j.collection;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+import static org.hamcrest.core.Is.is;
 import java.util.HashSet;
 import java.util.List;
 
@@ -22,6 +20,7 @@ public class NotifyAccountTest {
                         new Account("423", "Petr Arsentev", "dfwerg342")
                 )
         );
+        Assert.assertThat(NotifyAccount.sent(accounts), is(expect));
     }
 
     @Test
@@ -37,5 +36,6 @@ public class NotifyAccountTest {
                         new Account("423", "Petr Arsentev", "dfwerg342")
                 )
         );
+        Assert.assertThat(NotifyAccount.sent(accounts), is(expect));
     }
 }
