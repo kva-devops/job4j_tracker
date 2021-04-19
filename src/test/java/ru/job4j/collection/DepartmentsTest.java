@@ -3,6 +3,7 @@ package ru.job4j.collection;
 import org.junit.Assert;
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class DepartmentsTest {
 
     @Test
     public void testSortWhenAscOrder() {
-        List<String> input = List.of(
+        List<String> input = Arrays.asList(
                 "k2",
                 "k2/sk1",
                 "k2/sk1/ssk2",
@@ -48,7 +49,7 @@ public class DepartmentsTest {
 
     @Test
     public void testSortWhenDescOrder() {
-        List<String> input = List.of(
+        List<String> input = Arrays.asList(
                 "k1",
                 "k1/sk1",
                 "k2/sk1/ssk2",
