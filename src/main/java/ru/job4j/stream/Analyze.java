@@ -1,6 +1,8 @@
 package ru.job4j.stream;
 
 import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -26,14 +28,12 @@ public class Analyze {
                 .flatMap(pupil -> pupil.getSubjects().stream())
                 .collect(Collectors.groupingBy(
                         Subject::getName,
+                        LinkedHashMap::new,
                         Collectors.averagingDouble(Subject::getScore)))
                 .entrySet().stream()
                 .map(stringDoubleEntry -> new Tuple(
                         stringDoubleEntry.getKey(),
                         stringDoubleEntry.getValue()))
-                .collect(Collectors.toList()).stream()
-                // либо добавляем следующие строки, либо можно изменить порядок элементов в тесте
-                .sorted(Comparator.comparing(Object::toString).reversed())
                 .collect(Collectors.toList());
     }
 
