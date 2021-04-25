@@ -18,18 +18,14 @@ public class EasyStream {
         }
 
         EasyStream build() {
-            EasyStream eStream = new EasyStream();
+            EasyStream eStream = new EasyStream(this);
             eStream.buffer = buffer;
             return eStream;
         }
     }
 
-    public List<Integer> getBuffer() {
-        return buffer;
-    }
-
-    public void setBuffer(List<Integer> buffer) {
-        this.buffer = buffer;
+    private EasyStream(Builder builder) {
+        buffer = builder.buffer;
     }
 
     public static EasyStream of(List<Integer> source) {
@@ -37,28 +33,26 @@ public class EasyStream {
     }
 
     public EasyStream map(Function<Integer, Integer> fun) {
-        List<Integer> buffBefore = getBuffer();
+        List<Integer> buffBefore = new Builder().buildBuffer(buffer).build().buffer;
         List<Integer> buffAfter = new ArrayList<>();
         for (Integer elem : buffBefore) {
             buffAfter.add(fun.apply(elem));
         }
-        setBuffer(buffAfter);
-        return new Builder().buildBuffer(buffer).build();
+        return new Builder().buildBuffer(buffAfter).build();
     }
 
     public EasyStream filter(Predicate<Integer> fun) {
-        List<Integer> buffBefore = getBuffer();
+        List<Integer> buffBefore = new Builder().buildBuffer(buffer).build().buffer;
         List<Integer> buffAfter = new ArrayList<>();
         for (Integer elem : buffBefore) {
             if (fun.test(elem)) {
                 buffAfter.add(elem);
             }
         }
-        setBuffer(buffAfter);
-        return new Builder().buildBuffer(buffer).build();
+        return new Builder().buildBuffer(buffAfter).build();
     }
 
     public List<Integer> collect() {
-        return getBuffer();
+        return new Builder().buildBuffer(buffer).build().buffer;
     }
 }
