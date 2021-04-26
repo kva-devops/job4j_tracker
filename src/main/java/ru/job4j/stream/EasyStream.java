@@ -18,18 +18,16 @@ public class EasyStream {
     }
 
     public EasyStream map(Function<Integer, Integer> fun) {
-        List<Integer> buffBefore = List.copyOf(buffer);
         List<Integer> buffAfter = new ArrayList<>();
-        for (Integer elem : buffBefore) {
+        for (Integer elem : List.copyOf(buffer)) {
             buffAfter.add(fun.apply(elem));
         }
         return EasyStream.of(buffAfter);
     }
 
     public EasyStream filter(Predicate<Integer> fun) {
-        List<Integer> buffBefore = List.copyOf(buffer);
         List<Integer> buffAfter = new ArrayList<>();
-        for (Integer elem : buffBefore) {
+        for (Integer elem : List.copyOf(buffer)) {
             if (fun.test(elem)) {
                 buffAfter.add(elem);
             }
