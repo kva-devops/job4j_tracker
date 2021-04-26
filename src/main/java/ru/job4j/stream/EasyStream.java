@@ -6,7 +6,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class EasyStream {
-    private static EasyStream eStream;
 
     private final List<Integer> buffer;
 
@@ -15,12 +14,11 @@ public class EasyStream {
     }
 
     public static EasyStream of(List<Integer> source) {
-            eStream = new EasyStream(source);
-        return eStream;
+        return  new EasyStream(source);
     }
 
     public EasyStream map(Function<Integer, Integer> fun) {
-        List<Integer> buffBefore = eStream.buffer;
+        List<Integer> buffBefore = List.copyOf(buffer);
         List<Integer> buffAfter = new ArrayList<>();
         for (Integer elem : buffBefore) {
             buffAfter.add(fun.apply(elem));
@@ -29,7 +27,7 @@ public class EasyStream {
     }
 
     public EasyStream filter(Predicate<Integer> fun) {
-        List<Integer> buffBefore = eStream.buffer;
+        List<Integer> buffBefore = List.copyOf(buffer);
         List<Integer> buffAfter = new ArrayList<>();
         for (Integer elem : buffBefore) {
             if (fun.test(elem)) {
@@ -40,6 +38,6 @@ public class EasyStream {
     }
 
     public List<Integer> collect() {
-        return eStream.buffer;
+        return List.copyOf(buffer);
     }
 }
