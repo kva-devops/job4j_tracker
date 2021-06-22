@@ -1,6 +1,5 @@
 package ru.job4j.tracker;
 
-import java.util.Comparator;
 import java.util.List;
 
 public class SortItemDescendingOrder implements UserAction {
@@ -16,9 +15,9 @@ public class SortItemDescendingOrder implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Store memTracker) {
         out.println("=== Sorting by ID Descending Order ===");
-        List<Item> buffer = tracker.sortDescendId();
+        List<Item> buffer = memTracker.sortDescendId();
         for (Item element : buffer) {
             out.println(element);
         }

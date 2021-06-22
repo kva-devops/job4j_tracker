@@ -15,9 +15,9 @@ public class SortItemDescendingOrderName implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Store memTracker) {
         out.println("=== Sorting by Name Descending Order ===");
-        List<Item> buffer = tracker.sortDescendName();
+        List<Item> buffer = memTracker.sortDescendName();
         for (Item element : buffer) {
             out.println(element);
         }
