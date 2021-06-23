@@ -13,8 +13,8 @@ public class SqlTracker implements Store {
     public SqlTracker(Connection connection) {
         this.cn = connection;
     }
-    public SqlTracker() {
 
+    public SqlTracker() {
     }
 
     @Override

@@ -3,142 +3,168 @@ package ru.job4j.tracker;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Properties;
+
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 public class StartUITest {
 
-    @Test
-    public void testCreateItem() {
-        Output out = new StubOutput();
-        Input input = new StubInput(
-                new String[] {"0", "Fix PS4", "1"}
-        );
-        Store memTracker = new SqlTracker();
-        List<UserAction> actions = List.of(
-                new CreateAction(out),
-                new ExitAction(out)
-        );
-        new StartUI(out).init(input, memTracker, actions);
-        List<Item> created = memTracker.findAll();
-        Item expect = new Item("Fix PS4");
-        assertThat(created.get(0).getName(), is(expect.getName()));
+    public Connection init() {
+        try (InputStream in = SqlTracker
+                .class.getClassLoader()
+                .getResourceAsStream("app.properties")) {
+            Properties config = new Properties();
+            config.load(in);
+            Class.forName(config.getProperty("driver-class-name"));
+            return DriverManager.getConnection(
+                    config.getProperty("url"),
+                    config.getProperty("username"),
+                    config.getProperty("password")
+            );
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     @Test
-    public void whenShowAll() {
-        Output out = new StubOutput();
-        Input input = new StubInput(
-                new String[] {"0", "1"}
-        );
-        Store memTracker = new SqlTracker();
-        Item item = new Item("new item");
-        memTracker.add(item);
-        List<UserAction> actions = List.of(
-                new ShowAllAction(out),
-                new ExitAction(out)
-        );
-        new StartUI(out).init(input, memTracker, actions);
-        Assert.assertThat(out.toString(), is(
-                "Menu" + System.lineSeparator()
-                        + "0.Show all items" + System.lineSeparator()
-                        + "1.Exit program" + System.lineSeparator()
-                        + "=== All list items ===" + System.lineSeparator()
-                        + item + System.lineSeparator()
-                        + "Menu" + System.lineSeparator()
-                        + "0.Show all items" + System.lineSeparator()
-                        + "1.Exit program" + System.lineSeparator()
-        ));
+    public void createItem() throws SQLException {
+        try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
+            tracker.add(new Item("name"));
+            assertThat(tracker
+                    .findByName("name")
+                    .size(),
+                    is(1));
+        } catch (Exception e) {
+
+        }
     }
 
     @Test
-    public void whenReplaceItem() {
-        Output out = new StubOutput();
-        Store memTracker = new SqlTracker();
-        Item item = new Item("new item");
-        memTracker.add(item);
-        String[] answers = {"0", String.valueOf(item.getId()), "replaced item", "1"};
-        Input input = new StubInput(answers);
-        List<UserAction> actions = List.of(
-                new EditAction(out),
-                new ExitAction(out)
-        );
-        new StartUI(out).init(input, memTracker, actions);
-        Item replaced = memTracker.findById(item.getId());
-        Assert.assertThat(replaced.getName(), is("replaced item"));
+    public void whenShowAll() throws SQLException {
+        try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
+            tracker.add(new Item("one"));
+            tracker.add(new Item("two"));
+            assertThat(tracker
+                    .findAll()
+                    .size(),
+                    is(2));
+        } catch (Exception e) {
+
+        }
     }
 
     @Test
-    public void whenDeleteItem() {
-        Output out = new StubOutput();
-        Store memTracker = new SqlTracker();
-        Item item = new Item("new item");
-        memTracker.add(item);
-        String[] answers = {"0", String.valueOf(item.getId()), "1"};
-        Input input = new StubInput(answers);
-        List<UserAction> actions = List.of(
-                new DeleteAction(out),
-                new ExitAction(out)
-        );
-        new StartUI(out).init(input, memTracker, actions);
-        //StartUI.deleteItem(input, tracker);
-        Assert.assertThat(
-                memTracker.findById(item.getId()),
-                is(nullValue()));
+    public void whenReplaceItem() throws SQLException {
+        try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
+            tracker.add(new Item("one"));
+            tracker.replace(tracker.findByName("one").get(0).getId(), new Item("two"));
+            assertThat(tracker
+                    .findByName("two")
+                    .size(),
+                    is(1));
+        } catch (Exception e) {
+
+        }
     }
 
     @Test
-    public void whenFindByID() {
-        Store memTracker = new SqlTracker();
-        Item item = new Item("new item");
-        memTracker.add(item);
-        Output out = new StubOutput();
-        Input in = new StubInput(
-                new String[] {"0", String.valueOf(item.getId()), "1"}
-        );
-        List<UserAction> actions = List.of(
-                new FindByIDAction(out),
-                new ExitAction(out)
-        );
-        new StartUI(out).init(in, memTracker, actions);
-        Assert.assertThat(out.toString(), is(
-                "Menu" + System.lineSeparator()
-                        + "0.Find item by ID" + System.lineSeparator()
-                        + "1.Exit program" + System.lineSeparator()
-                        + "=== Find item by ID ===" + System.lineSeparator()
-                        + "Result: " + item + System.lineSeparator()
-                        + "Menu" + System.lineSeparator()
-                        + "0.Find item by ID" + System.lineSeparator()
-                        + "1.Exit program" + System.lineSeparator()
-        ));
+    public void whenDeleteItem() throws SQLException {
+        try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
+            tracker.add(new Item("one"));
+            tracker.delete(tracker.findByName("one").get(0).getId());
+            assertThat(tracker
+                    .findByName("two")
+                    .size(),
+                    is(0));
+        } catch (Exception e) {
+
+        }
     }
 
     @Test
-    public void whenFindByName() {
-        Output out = new StubOutput();
-        Input in = new StubInput(
-                new String[] {"0", "new item", "1"}
-        );
-        Store memTracker = new SqlTracker();
-        Item item = new Item("new item");
-        memTracker.add(item);
-        List<UserAction> actions = List.of(
-                new FindByNameAction(out),
-                new ExitAction(out)
-        );
-        new StartUI(out).init(in, memTracker, actions);
-        Assert.assertThat(out.toString(), is(
-                "Menu" + System.lineSeparator()
-                        + "0.Find items by name" + System.lineSeparator()
-                        + "1.Exit program" + System.lineSeparator()
-                        + "=== Find item by Name ===" + System.lineSeparator()
-                        + item + System.lineSeparator()
-                        + "Menu" + System.lineSeparator()
-                        + "0.Find items by name" + System.lineSeparator()
-                        + "1.Exit program" + System.lineSeparator()
-        ));
+    public void whenFindById() throws SQLException {
+        try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
+            tracker.add(new Item("one"));
+            assertThat(tracker.findById(tracker
+                    .findByName("one")
+                    .get(0)
+                    .getId())
+                    .getName(),
+                    is("one"));
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Test
+    public void whenFindByName() throws SQLException {
+        try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
+            tracker.add(new Item("one"));
+            assertThat(tracker
+                    .findByName("one")
+                    .size(),
+                    is(1));
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Test
+    public void whenFindAllByOrderNameAsc() throws SQLException {
+        try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
+            tracker.add(new Item("bbb"));
+            tracker.add(new Item("aaa"));
+            assertThat(tracker
+                    .findAllByOrder("name", "asc")
+                    .get(0).getName(),
+                    is("aaa"));
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Test
+    public void whenFindAllByOrderNameDesc() throws SQLException {
+        try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
+            tracker.add(new Item("bbb"));
+            tracker.add(new Item("aaa"));
+            assertThat(tracker
+                    .findAllByOrder("name", "desc")
+                    .get(0)
+                    .getName(),
+                    is("bbb"));
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Test
+    public void whenFindAllByOrderIdAsc() throws SQLException {
+        try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
+            tracker.add(new Item("bbb"));
+            tracker.add(new Item("aaa"));
+            assertThat(tracker.findAllByOrder("id", "asc").get(0).getName(), is("bbb"));
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Test
+    public void whenFindAllByOrderIdDesc() throws SQLException {
+        try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
+            tracker.add(new Item("bbb"));
+            tracker.add(new Item("aaa"));
+            assertThat(tracker.findAllByOrder("id", "desc").get(0).getName(), is("aaa"));
+        } catch (Exception e) {
+
+        }
     }
 
     @Test
@@ -151,7 +177,7 @@ public class StartUITest {
         List<UserAction> actions = List.of(
                 new ExitAction(out)
         );
-        new StartUI(out).init(in, memTracker, actions);
+       new StartUI(out).init(in, memTracker, actions);
         Assert.assertThat(out.toString(), is(
                 "Menu" + System.lineSeparator()
                         + "0.Exit program" + System.lineSeparator()
@@ -177,77 +203,5 @@ public class StartUITest {
                 + "Menu" + ln
                 + "0.Exit program" + ln
         ));
-    }
-
-    @Test
-    public void whenSortingAscendingOrder() {
-        Output out = new StubOutput();
-        Input in = new StubInput(
-                new String[] {"0", "Willy", "0", "Billy", "0", "John", "1", "2"}
-        );
-        Store memTracker = new SqlTracker();
-        List<UserAction> actions = List.of(
-                new CreateAction(out),
-                new SortItemAscendingOrder(out),
-                new ExitAction(out)
-        );
-        new StartUI(out).init(in, memTracker, actions);
-        List<Item> result = memTracker.findAll();
-        Item expect = new Item("John");
-        assertThat(result.get(2).getName(), is(expect.getName()));
-    }
-
-    @Test
-    public void whenSortingDescendingOrder() {
-        Output out = new StubOutput();
-        Input in = new StubInput(
-                new String[] {"0", "Willy", "0", "Billy", "0", "John", "1", "2"}
-        );
-        Store memTracker = new SqlTracker();
-        List<UserAction> actions = List.of(
-                new CreateAction(out),
-                new SortItemDescendingOrder(out),
-                new ExitAction(out)
-        );
-        new StartUI(out).init(in, memTracker, actions);
-        List<Item> result = memTracker.findAll();
-        Item expect = new Item("Willy");
-        assertThat(result.get(2).getName(), is(expect.getName()));
-    }
-
-    @Test
-    public void whenSortingAscendingOrderByName() {
-        Output out = new StubOutput();
-        Input in = new StubInput(
-                new String[] {"0", "Willy", "0", "Billy", "0", "John", "1", "2"}
-        );
-        Store memTracker = new SqlTracker();
-        List<UserAction> actions = List.of(
-                new CreateAction(out),
-                new SortItemAscendingOrderName(out),
-                new ExitAction(out)
-        );
-        new StartUI(out).init(in, memTracker, actions);
-        List<Item> result = memTracker.findAll();
-        Item expect = new Item("Billy");
-        assertThat(result.get(0).getName(), is(expect.getName()));
-    }
-
-    @Test
-    public void whenSortingDescendingOrderByName() {
-        Output out = new StubOutput();
-        Input in = new StubInput(
-                new String[] {"0", "Willy", "0", "Billy", "0", "John", "1", "2"}
-        );
-        Store memTracker = new SqlTracker();
-        List<UserAction> actions = List.of(
-                new CreateAction(out),
-                new SortItemDescendingOrderName(out),
-                new ExitAction(out)
-        );
-        new StartUI(out).init(in, memTracker, actions);
-        List<Item> result = memTracker.findAll();
-        Item expect = new Item("Willy");
-        assertThat(result.get(0).getName(), is(expect.getName()));
     }
 }
