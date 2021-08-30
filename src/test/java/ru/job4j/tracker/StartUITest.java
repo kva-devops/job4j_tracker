@@ -220,7 +220,10 @@ public class StartUITest {
             when(input.askInt(any(String.class))).thenReturn(idItemBuff);
             del.execute(input, tracker);
             String ln = System.lineSeparator();
-            assertThat(out.toString(), is("=== Delete item ===" + ln + "Deleting is successful" + ln));
+            assertThat(out.toString(), is("=== Delete item ==="
+                    + ln
+                    + "Deleting is successful"
+                    + ln));
         } catch (Exception e) {
 
         }
@@ -247,8 +250,6 @@ public class StartUITest {
 
         }
     }
-
-
 
     @Test
     public void whenFindByNameAction() {
