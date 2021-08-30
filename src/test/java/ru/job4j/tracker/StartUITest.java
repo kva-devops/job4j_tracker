@@ -11,8 +11,11 @@ import java.util.List;
 import java.util.Properties;
 
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class StartUITest {
 
@@ -203,5 +206,68 @@ public class StartUITest {
                 + "Menu" + ln
                 + "0.Exit program" + ln
         ));
+    }
+
+    @Test
+    public void whenDeleteAction() {
+        try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
+            Output out = new StubOutput();
+            Input input = mock(Input.class);
+            Item itemBuff = tracker.add(new Item("deleteItem"));
+            int idItemBuff = itemBuff.getId();
+            DeleteAction del = new DeleteAction(out);
+            when(input.askInt(any(String.class))).thenReturn(1);
+            when(input.askInt(any(String.class))).thenReturn(idItemBuff);
+            del.execute(input, tracker);
+            String ln = System.lineSeparator();
+            assertThat(out.toString(), is("=== Delete item ===" + ln + "Deleting is successful" + ln));
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Test
+    public void whenFindByIdAction() {
+        try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
+            Output out = new StubOutput();
+            Input input = mock(Input.class);
+            String name = "nameItem";
+            Item itemBuff = tracker.add(new Item(name));
+            int idItemBuff = itemBuff.getId();
+            FindByIDAction findById = new FindByIDAction(out);
+            when(input.askInt(any(String.class))).thenReturn(1);
+            when(input.askInt(any(String.class))).thenReturn(idItemBuff);
+            findById.execute(input, tracker);
+            String ln = System.lineSeparator();
+            assertThat(out.toString(), is("=== Find item by ID ==="
+                    + ln
+                    + "Result: " + itemBuff.toString()
+                    + ln));
+        } catch (Exception e) {
+
+        }
+    }
+
+
+
+    @Test
+    public void whenFindByNameAction() {
+        try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
+            Output out = new StubOutput();
+            Input input = mock(Input.class);
+            String name = "nameItem";
+            Item itemBuff = tracker.add(new Item(name));
+            FindByNameAction findByName = new FindByNameAction(out);
+            when(input.askInt(any(String.class))).thenReturn(1);
+            when(input.askStr(any(String.class))).thenReturn(name);
+            findByName.execute(input, tracker);
+            String ln = System.lineSeparator();
+            assertThat(out.toString(), is("=== Find item by Name ==="
+                    + ln
+                    + itemBuff.toString()
+                    + ln));
+        } catch (Exception e) {
+
+        }
     }
 }
