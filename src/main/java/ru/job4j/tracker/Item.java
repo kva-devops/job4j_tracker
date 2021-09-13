@@ -1,6 +1,12 @@
 package ru.job4j.tracker;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="items")
 public class Item {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
