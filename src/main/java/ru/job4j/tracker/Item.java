@@ -21,11 +21,15 @@ public class Item {
 
     public Item(String name) {
         this.name = name;
+        this.description = "default description";
+        this.created = new Timestamp(System.currentTimeMillis());
     }
 
     public Item(String name, int id) {
         this.name = name;
         this.id = id;
+        this.description = "default description";
+        this.created = new Timestamp(System.currentTimeMillis());
     }
 
     public Item(String name, String description, Timestamp created) {
