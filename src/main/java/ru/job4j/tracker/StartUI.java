@@ -44,10 +44,6 @@ public class StartUI {
                 new FindByIDAction(output),
                 new FindByNameAction(output),
                 new SortItemByOrderMode(output),
-//                new SortItemAscendingOrder(output),
-//                new SortItemDescendingOrder(output),
-//                new SortItemAscendingOrderName(output),
-//                new SortItemDescendingOrderName(output),
                 new ExitAction(output)
         );
 
