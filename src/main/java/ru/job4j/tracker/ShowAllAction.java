@@ -1,7 +1,5 @@
 package ru.job4j.tracker;
 
-import java.util.List;
-
 public class ShowAllAction implements UserAction {
     private final Output out;
 
@@ -17,10 +15,7 @@ public class ShowAllAction implements UserAction {
     @Override
     public boolean execute(Input input, Store memTracker) {
         out.println("=== All list items ===");
-        List<Item> buffer = memTracker.findAll();
-        for (Item element : buffer) {
-            out.println(element);
-        }
+        memTracker.findAllReact(System.out::println);
         return true;
     }
 }

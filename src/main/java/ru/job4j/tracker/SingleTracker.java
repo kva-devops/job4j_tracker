@@ -3,14 +3,14 @@ package ru.job4j.tracker;
 import java.util.List;
 
 public final class SingleTracker {
-    private static Store memTracker = new HbmTracker();
+    private static Store memTracker = new SqlTracker();
 
     private SingleTracker() {
     }
 
     public static Store getInstance() {
         if (memTracker == null) {
-            memTracker = new HbmTracker();
+            memTracker = new SqlTracker();
         }
         return memTracker;
     }
