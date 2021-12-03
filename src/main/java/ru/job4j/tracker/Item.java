@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "items")
@@ -21,8 +22,6 @@ public class Item {
 
     public Item(String name) {
         this.name = name;
-        this.description = "default description";
-        this.created = new Timestamp(System.currentTimeMillis());
     }
 
     public Item(String name, int id) {
@@ -78,5 +77,25 @@ public class Item {
                 + ", description='" + description + '\''
                 + ", created=" + created
                 + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Item item = (Item) o;
+        return id == item.id
+                && Objects.equals(name, item.name)
+                && Objects.equals(description, item.description)
+                && Objects.equals(created, item.created);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description, created);
     }
 }
